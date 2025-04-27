@@ -8,8 +8,8 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-type CotaFIN struct {
-	ID         int
+type Contact struct {
+	ContactId  int
 	FirstName1 string
 	LastName1  string
 	FirstName2 string
@@ -36,21 +36,32 @@ func initDB() {
 
 	sqlStatement := `
 	CREATE TABLE IF NOT EXISTS contacts (
-	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	firstName1 TEXT
-	lastName1 TEXT
-	firstName2 TEXT
-	lastName2 TEXT
-	address TEXT
-	city TEXT
-	state TEXT
-	zipcode TEXT
-	phone TEXT
-	notes TEXT
+	ContactId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	FirstName1 TEXT
+	LastName1 TEXT
+	FirstName2 TEXT
+	LastName2 TEXT
+	Address TEXT
+	City TEXT
+	State TEXT
+	Zipcode TEXT
+	Phone TEXT
+	Notes TEXT
 	);`
 
 	_, err = DB.Exec(sqlStatement)
 	check(err)
+
+	sqlStatement = `
+	CREATE TABLE IF NOT EXISTS xaction (
+	XactionID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	SpecialCollection INTEGER
+	Xamount REAL
+	);`
+
+	_, err = DB.Exec(sqlStatement)
+	check(err)
+
 }
 
 func main() {
